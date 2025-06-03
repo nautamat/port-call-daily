@@ -48,7 +48,7 @@ for i, imonr in enumerate(vessel_list, 1):
         if soup.find('div', class_='vi__r1 vi__sbt'):
             # Destination name
             destination = soup.find('a', class_='_npNa').get_text(strip=True) if soup.find('a', class_='_npNa') else "Destination not found."
-            eta = soup.find('span', class_='_mcol12ext').get_text(strip=True) if soup.find('span', class_='_mcol12ext') else "ETA not found."
+            eta = soup.find('span', class_='_mcol12ext').get_text(strip=True).replace("ETA: ", "") if soup.find('span', class_='_mcol12ext') else "ETA not found."
         
             print(f"Destination: {destination}")
             print(f"{eta}")
