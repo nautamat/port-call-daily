@@ -1,0 +1,28 @@
+name: Daily marine traffic data update
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Runs every day at 06:00 UTC
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+
+jobs:
+  runs_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run marine traffic data update script
+        run: python marine_traffic_data.py
+        env:
+          VESSELS: ${{ vars.VESSELS_IMONR }}
